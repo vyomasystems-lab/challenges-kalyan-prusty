@@ -53,4 +53,5 @@ async def test_mux(dut):
 		dut.sel.value = i
 		await Timer(2,units = 'ns')
 		print(f"31x1 Multiplexer output when sel = {i} should be {inp[i]} but output is {dut.out.value}")
-		assert dut.out.value == inp[i], f"31x1 Multiplexer output when sel = {i} should be {inp[i]} but output is {dut.out.value}"
+		if(dut.out.value != inp[i]):
+			print(f"FAIL: 31x1 Multiplexer output when sel = {i} should be {inp[i]} but output is {dut.out.value}")
