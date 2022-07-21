@@ -3,16 +3,18 @@
 import cocotb
 from cocotb.triggers import Timer
 import random
+import traceback
 
 @cocotb.test()
-async def test_mux(dut):
-	"""Test for mux2"""
+async def test_mux_1(dut):
+	"""Test-1 for mux2"""
 
 	inp = [0]*31
 
 	#setting up the 31 2-bit inputs 
 	for i in range(31):
-		inp[i] = random.randrange(1,4)
+		inp[i] = 1 + (i % 3) # so all the inputs will be different from each other and will be from the set {1,2,3}
+		print(f"inp{i} = {inp[i]}") # pinting the inputs to observe them
 
 	# input driving for dut
 	dut.inp0.value = inp[0]
@@ -48,10 +50,21 @@ async def test_mux(dut):
 	dut.inp30.value = inp[30]
 
 	await Timer(2, units='ns')
-
+	""" 
+		1. This is a simple variable to count the number of errors it found 
+		2. The number of times we are going into the exception block = number of errors
+	"""
+	count = 0
 	for i in range(31):
+		# Setting the select line to be at 12 i.e. sel = 5'b01100
 		dut.sel.value = i
 		await Timer(2,units = 'ns')
-		print(f"31x1 Multiplexer output when sel = {i} should be {inp[i]} but output is {dut.out.value}")
-		if(dut.out.value != inp[i]):
-			print(f"FAIL: 31x1 Multiplexer output when sel = {i} should be {inp[i]} but output is {dut.out.value}")
+
+		try:
+			assert dut.out.value == inp[i], "FAIL: 31x1 Multiplexer output when sel = {SEL} should be {INP_I} but the designed mux's output is {OUT}".format(SEL=i, INP_I=inp[i], OUT=dut.out.value)
+		except Exception as msg:
+			count = count + 1 # increase the count when there is a mismatch between actual output and expected output
+			print(msg)
+		
+	assert count == 0, "count is {COUNT}, i.e. there are {COUNT} errors in the program".format(COUNT = count)
+
