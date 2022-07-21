@@ -173,3 +173,5 @@ Write   ``5'b11110: out = inp30;`` in the case statement.
       default: out = 0;
     endcase
 ```
+Updating the design and re-running the test makes the test pass.
+![mux_bug_fixed](https://user-images.githubusercontent.com/33130256/180224296-17a23b0c-99dd-4547-8ef1-d22e648cdab9.png)
