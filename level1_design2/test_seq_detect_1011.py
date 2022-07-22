@@ -210,4 +210,5 @@ async def test_seq_bug3(dut):
     print(f"Now Time is {time} and current_state is {dut.current_state.value}")
     print(f"Now Time is {time} and output is {dut.seq_seen.value}")
 
+
     assert (dut.seq_seen.value == 1) ,"output is {SEQ_SEEEN}, when current_state is {CUR_STATE}".format(SEQ_SEEEN = dut.seq_seen.value, CUR_STATE = dut.current_state.value)
