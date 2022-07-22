@@ -1,4 +1,4 @@
-# Level1_Design1 (Sequence Detector) Design Verification
+# Level1_Design2 (Sequence Detector) Design Verification
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 
 ![main_failure](https://user-images.githubusercontent.com/33130256/180493834-88c83a9a-8264-463d-9d39-00a811a92146.png)
@@ -165,3 +165,5 @@ if FSM is in **SEQ_1011** state then depending on **inp_bit** it should change i
           next_state = IDLE;
       end
 ```
+Updating the design and re-running the test makes the test pass.
+![main_pass](https://user-images.githubusercontent.com/33130256/180516526-c29772d7-a3de-466b-8d94-cfa095087354.png)
