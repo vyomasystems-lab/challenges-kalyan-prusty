@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1658518536" />
+    <testcase name="test_seq_bug1" classname="test_seq_detect_1011" file="/workspace/challenges-kalyan-prusty/level1_design2_corrected/test_seq_detect_1011.py" lineno="13" time="0.0028467178344726562" sim_time_ns="105000.001" ratio_time="36884583.265854605" />
+    <testcase name="test_seq_bug2" classname="test_seq_detect_1011" file="/workspace/challenges-kalyan-prusty/level1_design2_corrected/test_seq_detect_1011.py" lineno="74" time="0.0023071765899658203" sim_time_ns="105000.001" ratio_time="45510170.94081885" />
+    <testcase name="test_seq_bug3" classname="test_seq_detect_1011" file="/workspace/challenges-kalyan-prusty/level1_design2_corrected/test_seq_detect_1011.py" lineno="134" time="0.003335714340209961" sim_time_ns="145000.00100000002" ratio_time="43468950.33909685" />
+  </testsuite>
+</testsuites>
