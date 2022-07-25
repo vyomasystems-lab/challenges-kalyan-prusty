@@ -22,7 +22,7 @@ def clock_gen(signal):
 
 # Sample Test
 @cocotb.test()
-def run_test(dut):
+def run_test_1(dut):
 
     # clock
     cocotb.fork(clock_gen(dut.CLK))
@@ -50,7 +50,7 @@ def run_test(dut):
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
-        printf(f"This is {i}th itteration.")
+        print(f"This is {i}th itteration.")
         expected_mav_putvalue = bitmanip(mav_putvalue_instr, mav_putvalue_src1, mav_putvalue_src2, mav_putvalue_src3)
 
         # driving the input transaction
@@ -77,7 +77,7 @@ def run_test(dut):
 
 
 @cocotb.test()
-def run_test(dut):
+def run_test_2(dut):
 
     # clock
     cocotb.fork(clock_gen(dut.CLK))
@@ -97,7 +97,7 @@ def run_test(dut):
     opcode = "0110011"
     error_count = 0
     for i in range(len(func3)): # as there are 31 elements in the func7 and func3 arrays
-        inst_str = func7[i] + rs2 + rs1 + func3[i] + rd + opcode
+        inst_str = rs3 + func7_2bit[i] + rs2 + rs1 + func3[i] + rd + opcode
         # input transaction
         mav_putvalue_src1 = 0x7
         mav_putvalue_src2 = 0x8
@@ -105,7 +105,7 @@ def run_test(dut):
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
-        printf(f"This is {i}th itteration.")
+        print(f"This is {i}th itteration.")
         expected_mav_putvalue = bitmanip(mav_putvalue_instr, mav_putvalue_src1, mav_putvalue_src2, mav_putvalue_src3)
 
         # driving the input transaction
