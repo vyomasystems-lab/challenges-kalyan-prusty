@@ -14,7 +14,7 @@ def bitmanip(mav_putvalue_instr, mav_putvalue_src1,mav_putvalue_src2, mav_putval
     length=len(le)
     opcode = le[-7::]
     func3 = le[length-15:length-12]
-    func7 = le[length-32:length-25]
+    func7 = le[length-32:length-25] 
     func7_imm = le[length-32:length-27]
     func7_2bit = le[length-27:length-25]
     func7_1bit = le[length-28:length-27]
