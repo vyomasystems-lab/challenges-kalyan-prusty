@@ -4,6 +4,8 @@
 import random
 import sys
 import cocotb
+import random
+
 from cocotb.decorators import coroutine
 from cocotb.triggers import Timer, RisingEdge
 from cocotb.result import TestFailure
@@ -11,9 +13,8 @@ from cocotb.clock import Clock
 
 from model_mkbitmanip import *
 
-src1 = 0x7
-src2 = 0x56
-src3 = 0x32
+
+
 # Clock Generation
 @cocotb.coroutine
 def clock_gen(signal):
@@ -45,11 +46,16 @@ def run_test_1(dut):
     opcode = "0110011"
     error_count = 0
     for i in range(len(func7)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = func7[i] + rs2 + rs1 + func3[i] + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -68,17 +74,18 @@ def run_test_1(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 1")
     print(f"Number of error is {error_count}")
-
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
 
 @cocotb.test()
 def run_test_2(dut):
@@ -101,11 +108,16 @@ def run_test_2(dut):
     opcode = "0110011"
     error_count = 0
     for i in range(len(func3)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = rs3 + func7_2bit[i] + rs2 + rs1 + func3[i] + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -124,16 +136,18 @@ def run_test_2(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 2")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
 
 @cocotb.test()
 def run_test_3(dut):
@@ -155,11 +169,16 @@ def run_test_3(dut):
     opcode = "0010011"
     error_count = 0
     for i in range(len(imm_value_1)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = func7 + imm_value_1[i] + rs1 + func3 + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -178,16 +197,18 @@ def run_test_3(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 3")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
 
 @cocotb.test()
 def run_test_4(dut):
@@ -210,11 +231,16 @@ def run_test_4(dut):
     opcode = "0010011"
     error_count = 0
     for i in range(len(func3)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = func7_imm[i] + func7_2bit + rs2  + rs1 + func3[i] + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -233,16 +259,19 @@ def run_test_4(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 4")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
+
 
 @cocotb.test()
 def run_test_5(dut):
@@ -265,11 +294,16 @@ def run_test_5(dut):
     opcode = "0010011"
     error_count = 0
     for i in range(len(func7_imm)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = func7_imm[i] + func7_2bit + rs2  + rs1 + func3 + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -288,16 +322,18 @@ def run_test_5(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 5")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
 
 
 @cocotb.test()
@@ -321,11 +357,16 @@ def run_test_6(dut):
     opcode = "0010011"
     error_count = 0
     for i in range(len(func3)): # as there are 31 elements in the func7 and func3 arrays
+        # reset
+        dut.RST_N.value <= 0
+        yield Timer(10) 
+        dut.RST_N.value <= 1
+        
         inst_str = func7_imm_SHFL + func7_1bit + rs2  + rs1 + func3[i] + rd + opcode
         # input transaction
-        mav_putvalue_src1 = src1
-        mav_putvalue_src2 = src2
-        mav_putvalue_src3 = src3 
+        mav_putvalue_src1 = random.randint(1, 100)
+        mav_putvalue_src2 = random.randint(1, 100)
+        mav_putvalue_src3 = random.randint(1, 100) 
         mav_putvalue_instr = int(inst_str, 2)
 
         # expected output from the model
@@ -344,16 +385,18 @@ def run_test_6(dut):
         # obtaining the output
         dut_output = dut.mav_putvalue.value
 
-        #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-        #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+        cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+        cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+        cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
         
         # comparison
         error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-        if(dut_output != expected_mav_putvalue) :
-            error_count = error_count + 1;
+        if(dut_output != expected_mav_putvalue or (not(dut_output & 0x1))) :
+            error_count = error_count + 1
             print(error_message)
     print("TEST SET 6")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
 
 @cocotb.test()
 def run_test_7(dut):
@@ -381,9 +424,9 @@ def run_test_7(dut):
     
     inst_str = func7_5bit + func7_fsri_1bit + func7_1bit + rs2 + rs1 + func3 + rd + opcode
     # input transaction
-    mav_putvalue_src1 = src1
-    mav_putvalue_src2 = src2
-    mav_putvalue_src3 = src3 
+    mav_putvalue_src1 = random.randint(1, 100)
+    mav_putvalue_src2 = random.randint(1, 100)
+    mav_putvalue_src3 = random.randint(1, 100) 
     mav_putvalue_instr = int(inst_str, 2)
 
     # expected output from the model
@@ -401,13 +444,15 @@ def run_test_7(dut):
     # obtaining the output
     dut_output = dut.mav_putvalue.value
 
-    #cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
-    #cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
+    cocotb.log.info(f'DUT OUTPUT={hex(dut_output)}')
+    cocotb.log.info(f'DUT OUTPUT LAST BIT={hex(dut_output & 0x1)}')
+    cocotb.log.info(f'EXPECTED OUTPUT={hex(expected_mav_putvalue)}')
     
     # comparison
     error_message = f'Value mismatch DUT = {hex(dut_output)} does not match MODEL = {hex(expected_mav_putvalue)}'
-    if(dut_output != expected_mav_putvalue) :
-        error_count = error_count + 1;
+    if((dut_output != expected_mav_putvalue) or (not(dut_output & 0x1))):
+        error_count = error_count + 1
         print(error_message)
     print("TEST SET 7")
     print(f"Number of error is {error_count}")
+    assert (error_count == 0), "There are {ERR_CNT} errors in this test case".format(ERR_CNT = error_count)
