@@ -4,7 +4,9 @@ TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/               # provide your design path
+export PYTHONPATH := $(PWD):$(PYTHONPATH)  # reference model
+
+VERILOG_SOURCES = $(PWD)/CORDIC.v
 
 TOPLEVEL :=     CORDIC      # design file
 MODULE   :=     test_cordic # test file
