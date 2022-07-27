@@ -83,5 +83,8 @@ The same is done for all the test cases.
 ![fail_test_1](https://user-images.githubusercontent.com/33130256/181168096-429b2098-4c81-4611-a726-09edaafbd187.png)
 Here we can see there is an error. And on analysing more we can see the error is in *ANDN instruction*.
 ![and_fail](https://user-images.githubusercontent.com/33130256/181169354-c3f3a86c-3a14-463c-b1cb-e5107aee2b7d.png)
-In the above image we can observe 
+In the above image we can observe The instruction for which we are testing is printed at the first. Then the DUT's output, last bit of output (as it has to be 1 for the valid output from DUT) and finally the output from the python program. And if both the outputs are not same then a value mismatch line is printed as shown for *ANDN instruction*. But as there is no problem in *ORN instruction* there is no mismatch. And finally we count the number of errors in every test_case. For the 1st case we found one error which is shown  in the above image.
+
+## Design Fix
+As from the above discussion we can find that there is some problem with *ANDN instruction*. Hence the designer has to work on that. 
 
