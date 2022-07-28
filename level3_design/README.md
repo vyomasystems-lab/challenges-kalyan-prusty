@@ -1,4 +1,5 @@
 # Level3_Design (CORDIC IP for sine and cosine value of any given angle) Design Verification
+![image](https://user-images.githubusercontent.com/33130256/181618301-bf96eed6-6fb9-418a-801a-eced1551684b.png)
 
 ## Description of Design 
 The implemented design in CORDIC.v file takes following inputs
