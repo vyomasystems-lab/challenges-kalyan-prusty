@@ -100,6 +100,11 @@ Expected output waveform has a pulse which is absent in the actual output which 
 Expected output waveform has 2 pulse where as one is absent in the actual output which proves that there is a bug in the design.
 
 ## Design Bug
+Along with the bugs the state diagram for FSM looks like:
+![wrong_fsm](https://user-images.githubusercontent.com/33130256/181617372-0d9826d6-3ad2-4aa0-bae7-498bbeac0c6e.jpg)
+
+The *RED LINES* are buggy lines which need to be updated with correct ones.
+
 ### Bug - 1
 ```
   // if the current state of the FSM has the sequence 1011, then the output is
@@ -165,5 +170,9 @@ if FSM is in **SEQ_1011** state then depending on **inp_bit** it should change i
           next_state = IDLE;
       end
 ```
+After updatting the design with the above fixes the FSM will look like
+![corresct_fsm](https://user-images.githubusercontent.com/33130256/181617501-25234b9e-4e65-446d-8b8a-c93bf1e6aa96.jpg)
+Here the *RED LINES* are replaced by *GREEN LINES* to fix all the bugs.
+
 Updating the design and re-running the test makes the test pass.
 ![main_pass](https://user-images.githubusercontent.com/33130256/180516526-c29772d7-a3de-466b-8d94-cfa095087354.png)
