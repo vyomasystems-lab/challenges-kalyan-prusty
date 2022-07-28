@@ -47,6 +47,7 @@ After ececuting this we can recieve the values as follows:
 ![value ](https://user-images.githubusercontent.com/33130256/181610311-749fcb89-8f30-4299-9da3-b669df383bb1.png)
 Let's check on calculator it on calculator to verify.
 ![image](https://user-images.githubusercontent.com/33130256/181612986-e4616505-e632-49e1-86e7-5c720619a3af.png)
-
+![image](https://user-images.githubusercontent.com/33130256/181613264-0f606319-ef6c-4246-a120-6a7ae726b814.png)
+The values from the design is almost same as calculated from the calculator.
 
 So After intoducing the bug we can check whether cosine and sine value are 13011 and 29230 respectively or not?
