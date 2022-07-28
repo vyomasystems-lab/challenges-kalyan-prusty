@@ -2,6 +2,23 @@
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 ![overall_fail](https://user-images.githubusercontent.com/33130256/181612585-7c7ca35d-dd49-4359-811a-2eb8d2ae8158.png)
 
+## Error introduced in the Design
+In the correct design the cordic equation was as follows:
+```
+         // add/subtract shifted data
+         X[i+1] <= Z_sign ? X[i] + Y_shr         : X[i] - Y_shr;
+         Y[i+1] <= Z_sign ? Y[i] - X_shr         : Y[i] + X_shr;
+         Z[i+1] <= Z_sign ? Z[i] + atan_table[i] : Z[i] - atan_table[i];
+```
+To intoduce error in the desin i have changed the actual cordic equations as follows:
+```
+        // add/subtract shifted data
+         X[i+1] <= Z_sign ? X[i] + Y_shr         : X[i] - Y_shr;
+         Y[i+1] <= Z_sign ? Y[i] + X_shr         : Y[i] - X_shr;
+         Z[i+1] <= Z_sign ? Z[i] + atan_table[i] : Z[i] - atan_table[i];
+```
+Observe the *Y[i+1]* equation in both the cases.
+
 ## Description of Design 
 The implemented design in CORDIC.v file takes following inputs
 ```
