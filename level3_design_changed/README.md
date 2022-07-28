@@ -1,4 +1,6 @@
 # Level3_Design_Changed (Wrong Design) (CORDIC IP for sine and cosine value of any given angle) Design Verification
+The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
+![overall_fail](https://user-images.githubusercontent.com/33130256/181612585-7c7ca35d-dd49-4359-811a-2eb8d2ae8158.png)
 
 ## Description of Design 
 The implemented design in CORDIC.v file takes following inputs
@@ -47,6 +49,7 @@ Let's check the output with the expected values of output
 ```
 assert ((cos_val == 13011) and (sin_val == 29230)), "There is some error in the design as design is not working as expected"
 ```
+![image](https://user-images.githubusercontent.com/33130256/181612160-731f4b26-1572-4af3-8aad-cf89c77b1cba.png)
 
-After ececuting this we can recieve the values as follows:
+After ececuting this we can observe that the values are different from the expected values.
 
